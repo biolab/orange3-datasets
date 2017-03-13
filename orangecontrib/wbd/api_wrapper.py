@@ -8,7 +8,7 @@ import datetime
 import time
 import logging
 
-import numpy
+import numpy as np
 
 import Orange
 import simple_wbd
@@ -72,6 +72,12 @@ class IndicatorDataset(simple_wbd.IndicatorDataset):
         return Orange.data.Table(domain, data_columns, metas=meta_columns)
 
     def _country_table(self):
+
+        def nonesorter(a):
+            if not a:
+                return ""
+            return a
+
         data = self.as_np_array(add_metadata=True)
 
         if not data.any():
@@ -80,34 +86,33 @@ class IndicatorDataset(simple_wbd.IndicatorDataset):
         meta_columns = data[1:, :7]
 
         data_columns = data[1:, 7:]
-
-        regions = {r:i for i,r in enumerate(sorted(set(meta_columns[:,1])))}
-        admin_regions = {r:i for i,r in enumerate(sorted(set(meta_columns[:,2])))}
-        income_level = {r:i for i,r in enumerate(sorted(set(meta_columns[:,3])))}
-        lending_type = {r:i for i,r in enumerate(sorted(set(meta_columns[:,6])))}
+        regions = {r: i for i, r in enumerate(sorted(set(meta_columns[:, 1]), key=nonesorter))}
+        admin_regions = {r: i for i, r in enumerate(sorted(set(meta_columns[:, 2]), key=nonesorter))}
+        income_level = {r: i for i, r in enumerate(sorted(set(meta_columns[:, 3]), key=nonesorter))}
+        lending_type = {r: i for i, r in enumerate(sorted(set(meta_columns[:, 6]), key=nonesorter))}
 
         meta_domains = [
           Orange.data.StringVariable("Country"),
           Orange.data.DiscreteVariable(
             "Region",
-            values=sorted(regions.keys())
+            values=sorted(regions.keys(), key=nonesorter)
           ),
           Orange.data.DiscreteVariable(
             "Admin region",
-            values=sorted(admin_regions.keys())
+            values=sorted(admin_regions.keys(), key=nonesorter)
           ),
           Orange.data.DiscreteVariable(
             "Income level",
-            values=sorted(income_level.keys())
+            values=sorted(income_level.keys(), key=nonesorter)
           ),
           Orange.data.ContinuousVariable("Longitude"),
           Orange.data.ContinuousVariable("Latitude"),
           Orange.data.DiscreteVariable(
             "Lending type",
-            values=sorted(lending_type.keys())
+            values=sorted(lending_type.keys(), key=nonesorter)
           ),
         ]
-        colum_domains = [Orange.data.ContinuousVariable(column_name)
+        column_domains = [Orange.data.ContinuousVariable(column_name)
                          for column_name in data[0, 7:]]
         for row in meta_columns:
           row[1] = regions[row[1]]
@@ -117,7 +122,17 @@ class IndicatorDataset(simple_wbd.IndicatorDataset):
 
         logger.debug("Generated Orange table of size: %s", data.shape)
 
-        domain = Orange.data.Domain(colum_domains, metas=meta_domains)
+        domain = Orange.data.Domain(column_domains, metas=meta_domains)
+
+        data_columns = data_columns.astype(float)
+        data_columns = np.where(data_columns == np.array(None), np.nan, data_columns)
+        data_columns = np.where(data_columns == '', np.nan, data_columns)
+        meta_columns = np.where(meta_columns == np.array(None), np.nan, meta_columns)
+        meta_columns = np.where(meta_columns == '', np.nan, meta_columns)
+        for row in meta_columns[:, 1:]:
+            row[3] = float(row[3])
+            row[4] = float(row[4])
+
         return Orange.data.Table(domain, data_columns, metas=meta_columns)
 
     def as_np_array(self, time_series=False, add_metadata=False, **kwargs):
@@ -135,7 +150,7 @@ class IndicatorDataset(simple_wbd.IndicatorDataset):
         Returns:
             2D numpy array with all indicator data.
         """
-        data = numpy.array(self.as_list(time_series=time_series,
+        data = np.array(self.as_list(time_series=time_series,
                                         add_metadata=add_metadata,
                                         **kwargs))
 
@@ -171,7 +186,7 @@ class ClimateDataset(simple_wbd.ClimateDataset):
         Returns:
             2D numpy array with all indicator data.
         """
-        data = numpy.array(self.as_list(**kwargs))
+        data = np.array(self.as_list(**kwargs))
 
         # list of column indexes that have at least one non zero value
         filter_ = [ind for ind, col in enumerate(data[1:, :].T) if any(col)]

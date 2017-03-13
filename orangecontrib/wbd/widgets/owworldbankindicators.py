@@ -11,8 +11,7 @@ import signal
 import logging
 import collections
 
-from PyQt4 import QtGui
-from PyQt4 import QtCore
+from AnyQt import QtCore, QtWidgets
 from Orange.data import table
 from Orange.widgets import widget
 from Orange.widgets import gui
@@ -113,25 +112,25 @@ class OWWorldBankIndicators(owwidget_base.OWWidgetBase):
         # Main area
 
         gui.widgetLabel(self.mainArea, "Filter")
-        self.filter_text = QtGui.QLineEdit(
+        self.filter_text = QtWidgets.QLineEdit(
             textChanged=self.filter_indicator_list)
-        self.completer = QtGui.QCompleter(
+        self.completer = QtWidgets.QCompleter(
             caseSensitivity=QtCore.Qt.CaseInsensitive)
-        self.completer.setModel(QtGui.QStringListModel(self))
+        self.completer.setModel(QtCore.QStringListModel(self))
         self.filter_text.setCompleter(self.completer)
 
-        spliter_v = QtGui.QSplitter(QtCore.Qt.Vertical, self.mainArea)
+        spliter_v = QtWidgets.QSplitter(QtCore.Qt.Vertical, self.mainArea)
 
         self.mainArea.layout().addWidget(self.filter_text)
         self.mainArea.layout().addWidget(spliter_v)
 
         self.indicator_widget = IndicatorsTreeView(spliter_v, main_widget=self)
 
-        splitter_h = QtGui.QSplitter(QtCore.Qt.Horizontal, spliter_v)
+        splitter_h = QtWidgets.QSplitter(QtCore.Qt.Horizontal, spliter_v)
 
         self.description_box = gui.widgetBox(splitter_h, "Description")
 
-        self.indicator_description = QtGui.QTextEdit()
+        self.indicator_description = QtWidgets.QTextEdit()
         self.indicator_description.setReadOnly(True)
         self.description_box.layout().addWidget(self.indicator_description)
 
@@ -240,7 +239,7 @@ def main():  # pragma: no cover
     """Helper for running the widget without Orange."""
     logging.basicConfig(level=logging.DEBUG)
     signal.signal(signal.SIGINT, signal.SIG_DFL)
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     indicators_widget = OWWorldBankIndicators()
     indicators_widget.show()
     app.exec_()

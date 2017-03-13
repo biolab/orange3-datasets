@@ -9,7 +9,7 @@ import collections
 from functools import partial
 
 import requests
-from PyQt4 import QtCore
+from AnyQt import QtCore
 from Orange.widgets import widget
 from Orange.widgets.utils import concurrent
 

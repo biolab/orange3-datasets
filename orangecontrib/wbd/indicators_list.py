@@ -6,9 +6,8 @@ from functools import partial
 from functools import lru_cache
 
 import simple_wbd
-from PyQt4.QtCore import Qt, QThread, QCoreApplication
-from PyQt4 import QtGui
-from PyQt4 import QtCore
+from AnyQt.QtCore import Qt, QThread, QCoreApplication
+from AnyQt import QtGui, QtCore, QtWidgets
 from Orange.widgets import gui
 from Orange.widgets.utils import concurrent
 
@@ -16,7 +15,7 @@ TEXTFILTERROLE = next(gui.OrangeUserRole)
 logger = logging.getLogger(__name__)
 
 
-class MySortFilterProxyModel(QtGui.QSortFilterProxyModel):
+class MySortFilterProxyModel(QtCore.QSortFilterProxyModel):
     """Filter proxy model.
 
     This class is used for improving filtering of indicators table.
@@ -24,9 +23,10 @@ class MySortFilterProxyModel(QtGui.QSortFilterProxyModel):
     # pylint: disable=invalid-name
     # camel case names are false positives because they must be used to
     # override the original QtGui.QSortFilterProxyModel functions
+    # PyQt5: it overrides QtCore.QSortFilterProxyModel
 
     def __init__(self, parent=None):
-        QtGui.QSortFilterProxyModel.__init__(self, parent)
+        QtCore.QSortFilterProxyModel.__init__(self, parent)
         self._filter_strings = []
         self._cache = {}
         self._cache_fixed = {}
@@ -44,7 +44,7 @@ class MySortFilterProxyModel(QtGui.QSortFilterProxyModel):
         self._cache_fixed = {}
         self._cache_prefix = {}
         self._row_text = {}
-        QtGui.QSortFilterProxyModel.setSourceModel(self, model)
+        QtCore.QSortFilterProxyModel.setSourceModel(self, model)
 
     def addFilterFixedString(self, string, invalidate=True):
         """ Add `string` filter to the list of filters. If invalidate is
@@ -128,10 +128,10 @@ class MySortFilterProxyModel(QtGui.QSortFilterProxyModel):
                 return int(left_gds) < int(right_gds)
             except ValueError:
                 pass
-        return QtGui.QSortFilterProxyModel.lessThan(self, left, right)
+        return QtCore.QSortFilterProxyModel.lessThan(self, left, right)
 
 
-class IndicatorsTreeView(QtGui.QTreeView):
+class IndicatorsTreeView(QtWidgets.QTreeView):
     """Tree view widget for displaying all indicators."""
 
     def __init__(self, parent, main_widget=None):
@@ -141,12 +141,12 @@ class IndicatorsTreeView(QtGui.QTreeView):
         self._indicator_data = None
         self._api = simple_wbd.IndicatorAPI()
         self.setAlternatingRowColors(True)
-        self.setEditTriggers(QtGui.QTreeView.NoEditTriggers)
+        self.setEditTriggers(QtWidgets.QTreeView.NoEditTriggers)
         self.setRootIsDecorated(False)
-        self.setSelectionBehavior(QtGui.QAbstractItemView.SelectRows)
+        self.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         # if not multi_select:
         # self.setSelectionMode(QtGui.QAbstractItemView.MultiSelection)
-        self.setSelectionMode(QtGui.QAbstractItemView.ExtendedSelection)
+        self.setSelectionMode(QtWidgets.QAbstractItemView.ExtendedSelection)
 
         linkdelegate = gui.LinkStyledItemDelegate(self)
         self.setItemDelegateForColumn(1, linkdelegate)

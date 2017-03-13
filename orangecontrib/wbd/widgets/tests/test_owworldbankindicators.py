@@ -5,8 +5,7 @@
 import unittest
 import time
 
-from PyQt4 import QtTest
-from PyQt4 import QtCore
+from AnyQt import QtTest, QtCore
 
 from orangecontrib.wbd.widgets import owworldbankindicators
 from Orange.widgets.utils import concurrent

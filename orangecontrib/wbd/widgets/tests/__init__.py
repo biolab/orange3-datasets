@@ -6,6 +6,6 @@ creating random widgets in unit tests.
 
 import sys
 
-from PyQt4 import QtGui
+from AnyQt import QtGui
 
 DUMMY_APP = QtGui.QApplication(sys.argv)

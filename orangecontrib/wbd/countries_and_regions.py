@@ -4,15 +4,14 @@ import collections
 import logging
 
 import simple_wbd
-from PyQt4 import QtGui
-from PyQt4 import QtCore
+from AnyQt import QtCore, QtWidgets
 
 from orangecontrib.wbd import countries
 
 logger = logging.getLogger(__name__)
 
 
-class CountryTreeWidget(QtGui.QTreeWidget):
+class CountryTreeWidget(QtWidgets.QTreeWidget):
     """Display a list of countries and their codes.
 
     The aggregates list was taken from:
@@ -79,7 +78,7 @@ class CountryTreeWidget(QtGui.QTreeWidget):
             name = countries.RENAME_MAP.get(key, value.get("name", key))
             display_key = "" if name == key else key
 
-            item = QtGui.QTreeWidgetItem(parent, [name, display_key])
+            item = QtWidgets.QTreeWidgetItem(parent, [name, display_key])
             item.key = value if isinstance(value, str) else key
 
             defaults[item.key] = defaults.get(item.key, self._default_select)

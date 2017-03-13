@@ -10,7 +10,7 @@ import math
 import signal
 import logging
 
-from PyQt4 import QtGui
+from AnyQt import QtWidgets
 from Orange.data import table
 from Orange.widgets import widget
 from Orange.widgets import gui
@@ -126,7 +126,10 @@ class OWWorldBankClimate(owwidget_base.OWWidgetBase):
         self._api = api_wrapper.ClimateAPI()
         self._init_layout()
         self.print_selection_count()
-        self._check_server_status()
+        try:
+            self._check_server_status()
+        except ConnectionError:
+            pass
 
     def print_selection_count(self):
         """Update info widget with new selection count."""
@@ -179,7 +182,9 @@ class OWWorldBankClimate(owwidget_base.OWWidgetBase):
             default_colapse=True,
             default_select=False,
         )
-        self.country_tree.set_data(countries.get_countries_dict())
+        countriesdict = countries.get_countries_dict()
+        if countriesdict is not None:
+            self.country_tree.set_data(countriesdict)
         box.layout().addWidget(self.country_tree)
         self.resize(500, 400)  # why does this not work
 
@@ -270,7 +275,7 @@ def main():  # pragma: no cover
     """Helper for running the widget without Orange."""
     logging.basicConfig(level=logging.DEBUG)
     signal.signal(signal.SIGINT, signal.SIG_DFL)
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     climate_widget = OWWorldBankClimate()
     climate_widget.show()
     app.exec_()

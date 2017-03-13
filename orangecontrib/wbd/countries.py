@@ -415,15 +415,18 @@ def get_alpha3_map():
 def get_countries_dict():
     """Get a dict of all all country codes and names grouped by continent."""
     result = defaultdict(dict)
-    alpha_map = {c.name: c.alpha3 for c in pycountry.countries}
-    for continent, countries in COUNTRIES.items():
-        for country in countries:
-            result[continent][alpha_map[MAPPINGS.get(country, country)]] = {
-                "name": country
-            }
-    result = {k: _order_countries_dict(v) for k, v in result.items()}
-    ordered_result = OrderedDict(sorted(result.items(), key=lambda t: t[0]))
-    return ordered_result
+    alpha_map = {c.name: c.alpha3 for c in pycountry.countries if hasattr(c, "name") and hasattr(c, "alpha3")}
+    if len(alpha_map) > 0:
+        for continent, countries in COUNTRIES.items():
+            for country in countries:
+                result[continent][alpha_map[MAPPINGS.get(country, country)]] = {
+                    "name": country
+                }
+        result = {k: _order_countries_dict(v) for k, v in result.items()}
+        ordered_result = OrderedDict(sorted(result.items(), key=lambda t: t[0]))
+        return ordered_result
+    else:
+        return None
 
 
 def _gather_used_ids(items):
