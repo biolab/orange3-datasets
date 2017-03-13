@@ -40,7 +40,7 @@ def get_description():
 if __name__ == '__main__':
     setup(
         name="Orange3-Datasets",
-        version="0.1.3",
+        version="0.1.4",
         license="MIT",
         author="Miha Zidar",
         author_email="zidarsk8@gmail.com",
