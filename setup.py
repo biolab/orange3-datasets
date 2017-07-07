@@ -15,7 +15,7 @@ ENTRY_POINTS = {
         # Syntax: category name = path.to.package.containing.widgets
         # Widget category specification can be seen in
         #    orangecontrib/datasets/widgets/__init__.py
-        'Data Sets = orangecontrib.datasets.widgets',
+        'Datasets = orangecontrib.datasets.widgets',
     ),
 
     # Register widget help
@@ -47,7 +47,7 @@ if __name__ == '__main__':
         description=("Orange interface for World Bank Data Indicator and "
                      "Climate APIs"),
         long_description=get_description(),
-        url="https://github.com/zidarsk8/orange3-datasets",
+        url="https://github.com/zidarsk/orange3-datasets",
         download_url=("https://github.com/zidarsk8/orange3-datasets/tarball/"
                       "0.1.3"),
         packages=[
