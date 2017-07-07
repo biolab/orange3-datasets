@@ -6,7 +6,7 @@ import logging
 import simple_wbd
 from AnyQt import QtCore, QtWidgets
 
-from orangecontrib.wbd import countries
+from orangecontrib.datasets import countries
 
 logger = logging.getLogger(__name__)
 

@@ -12,7 +12,7 @@ import numpy as np
 
 import Orange
 import simple_wbd
-from orangecontrib.wbd import countries
+from orangecontrib.datasets import countries
 
 logger = logging.getLogger(__name__)
 

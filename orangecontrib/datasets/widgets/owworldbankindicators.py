@@ -17,11 +17,11 @@ from Orange.widgets import widget
 from Orange.widgets import gui
 from Orange.widgets.settings import Setting
 
-from orangecontrib.wbd.countries_and_regions import CountryTreeWidget
-from orangecontrib.wbd.indicators_list import IndicatorsTreeView
-from orangecontrib.wbd import api_wrapper
-from orangecontrib.wbd import countries
-from orangecontrib.wbd import owwidget_base
+from orangecontrib.datasets.countries_and_regions import CountryTreeWidget
+from orangecontrib.datasets.indicators_list import IndicatorsTreeView
+from orangecontrib.datasets import api_wrapper
+from orangecontrib.datasets import countries
+from orangecontrib.datasets import owwidget_base
 
 logger = logging.getLogger(__name__)
 
