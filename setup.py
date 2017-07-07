@@ -7,20 +7,20 @@ ENTRY_POINTS = {
     # from welcome screen. Tutorials are saved Orange Workflows (.ows files).
     'orange.widgets.tutorials': (
         # Syntax: any_text = path.to.package.containing.tutorials
-        'exampletutorials = orangecontrib.wbd.tutorials',
+        'exampletutorials = orangecontrib.datasets.tutorials',
     ),
 
     # Entry point used to specify packages containing widgets.
     'orange.widgets': (
         # Syntax: category name = path.to.package.containing.widgets
         # Widget category specification can be seen in
-        #    orangecontrib/wbd/widgets/__init__.py
-        'Data Sets = orangecontrib.wbd.widgets',
+        #    orangecontrib/datasets/widgets/__init__.py
+        'Data Sets = orangecontrib.datasets.widgets',
     ),
 
     # Register widget help
     "orange.canvas.help": (
-        'html-index = orangecontrib.wbd.widgets:WIDGET_HELP_PATH',)
+        'html-index = orangecontrib.datasets.widgets:WIDGET_HELP_PATH',)
 }
 
 KEYWORDS = [
@@ -52,13 +52,13 @@ if __name__ == '__main__':
                       "0.1.3"),
         packages=[
             'orangecontrib',
-            'orangecontrib.wbd',
-            'orangecontrib.wbd.tutorials',
-            'orangecontrib.wbd.widgets',
+            'orangecontrib.datasets',
+            'orangecontrib.datasets.tutorials',
+            'orangecontrib.datasets.widgets',
         ],
         package_data={
-            'orangecontrib.wbd': ['tutorials/*.ows'],
-            'orangecontrib.wbd.widgets': ['icons/*'],
+            'orangecontrib.datasets': ['tutorials/*.ows'],
+            'orangecontrib.datasets.widgets': ['icons/*'],
         },
         install_requires=[
             'Orange3',
