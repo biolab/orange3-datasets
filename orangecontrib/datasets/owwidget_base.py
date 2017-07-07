@@ -27,7 +27,7 @@ class OWWidgetBase(widget.OWWidget):
     # pylint: disable=too-many-instance-attributes
     # False positive from fetching all attributes from QWWidget.
 
-    category = "Data Sets"
+    category = "Datasets"
     country_selection = None
 
     def __init__(self):

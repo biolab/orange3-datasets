@@ -1,2 +1,2 @@
-include orangecontrib/wbd/tutorials/*.ows
-include orangecontrib/wbd/widgets/icons/*
+include orangecontrib/datasets/tutorials/*.ows
+include orangecontrib/datasets/widgets/icons/*
