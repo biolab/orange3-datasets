@@ -43,6 +43,10 @@ class OWWorldBankClimate(owwidget_base.OWWidgetBase):
         doc="Climate data from World bank Climate API"
     )]
 
+    replaces = [
+        "Orange.orangecontrib.wbd.widgets.OWWorldBankClimate",
+    ]
+
     settingsList = [
         "auto_commit",
         "country_selection",

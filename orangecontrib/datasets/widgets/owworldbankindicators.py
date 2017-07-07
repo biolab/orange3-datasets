@@ -45,6 +45,10 @@ class OWWorldBankIndicators(owwidget_base.OWWidgetBase):
         doc="Indicator data from World bank Indicator API"
     )]
 
+    replaces = [
+        "Orange.orangecontrib.wbd.widgets.OWWorldBankIndicators",
+    ]
+
     indicator_list_map = collections.OrderedDict([
         (0, "All"),
         (1, "Common"),
