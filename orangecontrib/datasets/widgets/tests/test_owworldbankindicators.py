@@ -7,7 +7,7 @@ import time
 
 from AnyQt import QtTest, QtCore
 
-from orangecontrib.wbd.widgets import owworldbankindicators
+from orangecontrib.datasets.widgets import owworldbankindicators
 from Orange.widgets.utils import concurrent
 # from concurrent.futures import wait
 
