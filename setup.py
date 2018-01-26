@@ -2,6 +2,11 @@
 
 from setuptools import setup
 
+MAJOR = 0
+MINOR = 1
+MICRO = 4
+VERSION = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
+
 ENTRY_POINTS = {
     # Entry point used to specify packages containing tutorials accessible
     # from welcome screen. Tutorials are saved Orange Workflows (.ows files).
@@ -40,16 +45,15 @@ def get_description():
 if __name__ == '__main__':
     setup(
         name="Orange3-Datasets",
-        version="0.1.4",
+        version=VERSION,
         license="MIT",
         author="Miha Zidar",
         author_email="zidarsk8@gmail.com",
         description=("Orange interface for World Bank Data Indicator and "
                      "Climate APIs"),
         long_description=get_description(),
-        url="https://github.com/zidarsk/orange3-datasets",
-        download_url=("https://github.com/zidarsk8/orange3-datasets/tarball/"
-                      "0.1.3"),
+        url="https://github.com/biolab/orange3-datasets",
+        download_url=("https://github.com/biolab/orange3-datasets/tarball/{}".format(VERSION)),
         packages=[
             'orangecontrib',
             'orangecontrib.datasets',
