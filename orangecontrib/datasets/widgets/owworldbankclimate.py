@@ -44,7 +44,7 @@ class OWWorldBankClimate(owwidget_base.OWWidgetBase):
     )]
 
     replaces = [
-        "Orange.orangecontrib.wbd.widgets.OWWorldBankClimate",
+        "orangecontrib.wbd.widgets.owworldbankclimate.OWWorldBankClimate",
     ]
 
     settingsList = [

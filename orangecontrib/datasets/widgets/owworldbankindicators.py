@@ -46,7 +46,7 @@ class OWWorldBankIndicators(owwidget_base.OWWidgetBase):
     )]
 
     replaces = [
-        "Orange.orangecontrib.wbd.widgets.OWWorldBankIndicators",
+        "orangecontrib.wbd.widgets.owworldbankindicators.OWWorldBankIndicators",
     ]
 
     indicator_list_map = collections.OrderedDict([
